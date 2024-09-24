@@ -5,15 +5,11 @@ struct Conjunto {
     int numeros[20];
     int tamanho;
 
-
-
-
-
     void lerConjunto() {
         printf("Digite quantos numeros tem o conjunto (maximo 20):\n");
         scanf("%d", &tamanho);
         if (tamanho > 20) {
-            printf("Número de elementos excede a capacidade máxima. Ajustando para 20.\n");
+            printf("NÃºmero de elementos excede a capacidade mÃ¡xima. Ajustando para 20.\n");
             tamanho = 20;
         }
         printf("Digite os elementos do conjunto:\n");
@@ -100,37 +96,37 @@ int main() {
                 c[conjsL].lerConjunto();
                 conjsL++;
             } else {
-                printf("Não existem conjuntos vazios, crie um para lê-lo\n");
+                printf("NÃ£o existem conjuntos vazios, crie um para lÃª-lo\n");
             }
         } else if (n == 3) {
             int op1, op2;
             if (conjsL >= 2) {
-                printf("Escolha os conjuntos para união (1 a %d):\n", conjsL);
+                printf("Escolha os conjuntos para uniÃ£o (1 a %d):\n", conjsL);
                 scanf("%d %d", &op1, &op2);
                 if (op1 > 0 && op1 <= conjsL && op2 > 0 && op2 <= conjsL) {
                     struct Conjunto uniao = c[op1 - 1].uniao(&c[op2 - 1]);
-                    printf("União dos conjuntos %d e %d:\n", op1, op2);
+                    printf("UniÃ£o dos conjuntos %d e %d:\n", op1, op2);
                     uniao.mostrarConjunto(0);
                 } else {
-                    printf("Conjuntos inválidos.\n");
+                    printf("Conjuntos invÃ¡lidos.\n");
                 }
             } else {
-                printf("É necessário ter pelo menos dois conjuntos para realizar a união.\n");
+                printf("Ã‰ necessÃ¡rio ter pelo menos dois conjuntos para realizar a uniÃ£o.\n");
             }
         } else if (n == 4) {
             int op1, op2;
             if (conjsL >= 2) {
-                printf("Escolha os conjuntos para interseção (1 a %d):\n", conjsL);
+                printf("Escolha os conjuntos para interseÃ§Ã£o (1 a %d):\n", conjsL);
                 scanf("%d %d", &op1, &op2);
                 if (op1 > 0 && op1 <= conjsL && op2 > 0 && op2 <= conjsL) {
                     struct Conjunto intersecao = c[op1 - 1].intersecao(&c[op2 - 1]);
-                    printf("Interseção dos conjuntos %d e %d:\n", op1, op2);
+                    printf("InterseÃ§Ã£o dos conjuntos %d e %d:\n", op1, op2);
                     intersecao.mostrarConjunto(0);
                 } else {
-                    printf("Conjuntos inválidos.\n");
+                    printf("Conjuntos invÃ¡lidos.\n");
                 }
             } else {
-                printf("É necessário ter pelo menos dois conjuntos para realizar a interseção.\n");
+                printf("Ã‰ necessÃ¡rio ter pelo menos dois conjuntos para realizar a interseÃ§Ã£o.\n");
             }
         } else if (n == 5) {
             int op;
@@ -146,12 +142,12 @@ int main() {
                     printf("Conjunto invalido\n");
                 }
             } else {
-                printf("Você não leu nenhum conjunto\n");
+                printf("VocÃª nÃ£o leu nenhum conjunto\n");
             }
         } else if (n == 6) {
             break;
         } else {
-            printf("Digite uma opção válida\n");
+            printf("Digite uma opÃ§Ã£o vÃ¡lida\n");
         }
     }
 
