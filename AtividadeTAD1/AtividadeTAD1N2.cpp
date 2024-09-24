@@ -18,68 +18,77 @@ struct Conjunto {
         }
     }
 
-
     void mostrarConjunto(int a) {
-        if(a>0){
-                printf("Conjunto %d:\n", a);
+        if (a > 0) {
+            printf("Conjunto %d:\n", a);
         }
-
         for (int i = 0; i < tamanho; i++) {
             printf("%d ", numeros[i]);
         }
         printf("\n");
     }
 
-
-    struct Conjunto uniao(const struct Conjunto* outro) {
-        struct Conjunto resultado;
-        resultado.tamanho = 0;
-
+    void uniao(const struct Conjunto* outro) {
+        int resultado[40];
+        int tamanhoResultado = 0;
 
         for (int i = 0; i < tamanho; i++) {
-            resultado.numeros[resultado.tamanho++] = numeros[i];
+            resultado[tamanhoResultado++] = numeros[i];
         }
-
 
         for (int i = 0; i < outro->tamanho; i++) {
             bool existe = false;
-            for (int j = 0; j < resultado.tamanho; j++) {
-                if (outro->numeros[i] == resultado.numeros[j]) {
+            for (int j = 0; j < tamanhoResultado; j++) {
+                if (outro->numeros[i] == resultado[j]) {
                     existe = true;
                     break;
                 }
             }
-            if (!existe) {
-                resultado.numeros[resultado.tamanho++] = outro->numeros[i];
+            if (!existe && tamanhoResultado < 40) {
+                resultado[tamanhoResultado++] = outro->numeros[i];
             }
         }
 
-        return resultado;
+        printf("União dos conjuntos:\n");
+        for (int i = 0; i < tamanhoResultado; i++) {
+            printf("%d ", resultado[i]);
+        }
+        printf("\n");
     }
 
-
-    struct Conjunto intersecao(const struct Conjunto* outro) {
-        struct Conjunto resultado;
-        resultado.tamanho = 0;
-
+    void intersecao(const struct Conjunto* outro) {
+        int resultado[20]; 
+        int tamanhoResultado = 0;
 
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < outro->tamanho; j++) {
                 if (numeros[i] == outro->numeros[j]) {
-                    resultado.numeros[resultado.tamanho++] = numeros[i];
-                    break;
+                    bool existe = false;
+                    for (int k = 0; k < tamanhoResultado; k++) {
+                        if (resultado[k] == numeros[i]) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        resultado[tamanhoResultado++] = numeros[i];
+                    }
                 }
             }
         }
 
-        return resultado;
+        printf("Interseção dos conjuntos:\n");
+        for (int i = 0; i < tamanhoResultado; i++) {
+            printf("%d ", resultado[i]);
+        }
+        printf("\n");
     }
 };
 
 int main() {
     int conjs = 0;
     int conjsL = 0;
-    Conjunto c[100];
+    struct Conjunto c[100];
 
     while (1) {
         int n;
@@ -101,9 +110,7 @@ int main() {
                 printf("Escolha os conjuntos para união (1 a %d):\n", conjsL);
                 scanf("%d %d", &op1, &op2);
                 if (op1 > 0 && op1 <= conjsL && op2 > 0 && op2 <= conjsL) {
-                    struct Conjunto uniao = c[op1 - 1].uniao(&c[op2 - 1]);
-                    printf("União dos conjuntos %d e %d:\n", op1, op2);
-                    uniao.mostrarConjunto(0);
+                    c[op1 - 1].uniao(&c[op2 - 1]);
                 } else {
                     printf("Conjuntos inválidos.\n");
                 }
@@ -116,9 +123,7 @@ int main() {
                 printf("Escolha os conjuntos para interseção (1 a %d):\n", conjsL);
                 scanf("%d %d", &op1, &op2);
                 if (op1 > 0 && op1 <= conjsL && op2 > 0 && op2 <= conjsL) {
-                    struct Conjunto intersecao = c[op1 - 1].intersecao(&c[op2 - 1]);
-                    printf("Interseção dos conjuntos %d e %d:\n", op1, op2);
-                    intersecao.mostrarConjunto(0);
+                    c[op1 - 1].intersecao(&c[op2 - 1]);
                 } else {
                     printf("Conjuntos inválidos.\n");
                 }
