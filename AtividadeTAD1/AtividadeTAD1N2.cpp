@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 struct Conjunto {
-    int numeros[20];
+    int numeros[40];
     int tamanho;
 
     void lerConjunto() {
@@ -28,60 +28,53 @@ struct Conjunto {
         printf("\n");
     }
 
-    void uniao(const struct Conjunto* outro) {
-        int resultado[40];
-        int tamanhoResultado = 0;
+    struct Conjunto uniao(const struct Conjunto* outro) {
+        struct Conjunto resultado;
+        resultado.tamanho = 0;
 
         for (int i = 0; i < tamanho; i++) {
-            resultado[tamanhoResultado++] = numeros[i];
+            resultado.numeros[resultado.tamanho++] = numeros[i];
         }
 
         for (int i = 0; i < outro->tamanho; i++) {
             bool existe = false;
-            for (int j = 0; j < tamanhoResultado; j++) {
-                if (outro->numeros[i] == resultado[j]) {
+            for (int j = 0; j < resultado.tamanho; j++) {
+                if (outro->numeros[i] == resultado.numeros[j]) {
                     existe = true;
                     break;
                 }
             }
-            if (!existe && tamanhoResultado < 40) {
-                resultado[tamanhoResultado++] = outro->numeros[i];
+            if (!existe && resultado.tamanho < 40) {
+                resultado.numeros[resultado.tamanho++] = outro->numeros[i];
             }
         }
 
-        printf("União dos conjuntos:\n");
-        for (int i = 0; i < tamanhoResultado; i++) {
-            printf("%d ", resultado[i]);
-        }
-        printf("\n");
+        return resultado;
     }
 
-    void intersecao(const struct Conjunto* outro) {
-        int resultado[20]; 
-        int tamanhoResultado = 0;
+     struct Conjunto intersecao(const struct Conjunto* outro) {
+        struct Conjunto resultado;
+        resultado.tamanho = 0;
 
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < outro->tamanho; j++) {
                 if (numeros[i] == outro->numeros[j]) {
                     bool existe = false;
-                    for (int k = 0; k < tamanhoResultado; k++) {
-                        if (resultado[k] == numeros[i]) {
+
+                    for (int k = 0; k < resultado.tamanho; k++) {
+                        if (resultado.numeros[k] == numeros[i]) {
                             existe = true;
                             break;
                         }
                     }
                     if (!existe) {
-                        resultado[tamanhoResultado++] = numeros[i];
+                        resultado.numeros[resultado.tamanho++] = numeros[i];
                     }
                 }
             }
         }
 
-        printf("Interseção dos conjuntos:\n");
-        for (int i = 0; i < tamanhoResultado; i++) {
-            printf("%d ", resultado[i]);
-        }
-        printf("\n");
+        return resultado;
     }
 };
 
@@ -106,29 +99,31 @@ int main() {
             }
         } else if (n == 3) {
             int op1, op2;
-            if (conjsL >= 2) {
+            if (conjsL >= 2 && conjs > conjsL) {
                 printf("Escolha os conjuntos para união (1 a %d):\n", conjsL);
                 scanf("%d %d", &op1, &op2);
                 if (op1 > 0 && op1 <= conjsL && op2 > 0 && op2 <= conjsL) {
-                    c[op1 - 1].uniao(&c[op2 - 1]);
+                    c[conjsL] = c[op1 - 1].uniao(&c[op2 - 1]);
+                    conjsL++;
                 } else {
                     printf("Conjuntos inválidos.\n");
                 }
             } else {
-                printf("É necessário ter pelo menos dois conjuntos para realizar a união.\n");
+                printf("É necessário ter pelo menos dois conjuntos e um conjunto vazio para realizar a união.\n");
             }
         } else if (n == 4) {
             int op1, op2;
-            if (conjsL >= 2) {
+            if (conjsL >= 2 && conjs > conjsL) {
                 printf("Escolha os conjuntos para interseção (1 a %d):\n", conjsL);
                 scanf("%d %d", &op1, &op2);
                 if (op1 > 0 && op1 <= conjsL && op2 > 0 && op2 <= conjsL) {
-                    c[op1 - 1].intersecao(&c[op2 - 1]);
+                    c[conjsL] = c[op1 - 1].intersecao(&c[op2 - 1]);
+                    conjsL++;
                 } else {
                     printf("Conjuntos inválidos.\n");
                 }
             } else {
-                printf("É necessário ter pelo menos dois conjuntos para realizar a interseção.\n");
+                printf("É necessário ter pelo menos dois conjuntos e um conjunto vazio para realizar a interseção.\n");
             }
         } else if (n == 5) {
             int op;
