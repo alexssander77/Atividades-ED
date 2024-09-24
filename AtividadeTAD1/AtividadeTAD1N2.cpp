@@ -81,9 +81,6 @@ int main() {
     int conjsL = 0;
     Conjunto c[100];
 
-
-
-
     while (1) {
         int n;
         printf("Escolha a acao a ser realizada:\n1-Criar novo conjunto vazio\n2-Ler novo conjunto\n3-Fazer uniao de dois conjuntos\n4-Fazer a interseccao de dois conjuntos\n5-Mostrar um conjunto\n6-Fechar o programa\n");
