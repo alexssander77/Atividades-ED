@@ -176,14 +176,12 @@ struct List {
         if(n>=c){
             for(int i=0;i<c;i++){
                 popBack();
-                c--;
             }
             first=NULL;
             last=NULL;
         }else{
             for(int i=0;i<n;i++){
                 popBack();
-                c--;
             }
         }
     }
@@ -196,12 +194,10 @@ struct List {
     }
     void insertCFim(){
         pushBack(c);
-        c++;
     }
     void insertAteN(int n){
         for(int i=1;i<=n;i++){
             pushBack(i);
-            c++;
         }
     }
     void insertPen(int num){
