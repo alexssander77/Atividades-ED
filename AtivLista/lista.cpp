@@ -178,8 +178,8 @@ struct List {
                 popBack();
                 c--;
             }
-            first=Null;
-            last=Null;
+            first=NULL;
+            last=NULL;
         }else{
             for(int i=0;i<n;i++){
                 popBack();
