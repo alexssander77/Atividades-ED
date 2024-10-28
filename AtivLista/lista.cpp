@@ -173,11 +173,13 @@ struct List {
     }
 
     void removerNBack(int n){
-        if(n>c){
+        if(n>=c){
             for(int i=0;i<c;i++){
                 popBack();
                 c--;
             }
+            first=Null;
+            last=Null;
         }else{
             for(int i=0;i<n;i++){
                 popBack();
